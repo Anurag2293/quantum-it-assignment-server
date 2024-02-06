@@ -3,6 +3,7 @@ import User from "../model/User";
 
 export const registerController = async (req: Request, res: Response) => {
     try {
+        console.log(req.body);
         const { name, email, password } = req.body;
         const userExists = await User.findOne({ email });
         if (userExists) {
@@ -25,7 +26,8 @@ export const registerController = async (req: Request, res: Response) => {
                 token
             }
         })
-    } catch (error) {
+    } catch (error: any) {
+        console.log(error.message);
         res.status(500).json({
             error: (error as Error).message,
             response: null
